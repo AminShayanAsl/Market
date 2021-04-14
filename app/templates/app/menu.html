@@ -1,0 +1,164 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/fontawesome.min.css' %}">
+        <script src="{% static 'app/JS/jQuery.js' %}"></script>
+        <script src="{% static 'app/JS/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/bootstrap.min.css' %}">
+        <script src="{% static 'app/JS/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/style.css' %}">
+        <script src="{% static 'app/JS/style.js' %}"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'app/logo/logo.ico' %}" />
+        <title>شایان مارکت</title>
+    </head>
+    <body>
+        <div class="container shadow" id="mobile_menu">
+            {% if name == 'electronic' %}
+                <div id="grouping_title">کالا دیجیتال :</div>
+
+            {% elif name == 'clothes' %}
+                <div id="grouping_title">پوشاک :</div>
+
+            {% elif name == 'homeApp' %}
+                <div id="grouping_title">لوازم خانه و آشپزخانه :</div>
+
+            {% elif name == 'sport' %}
+                <div id="grouping_title">ورزشی :</div>
+
+            {% elif name == 'stationery' %}
+                <div id="grouping_title">لوازم تحریر :</div>
+
+            {% endif %}
+
+            {% if name != 'clothes' %}
+                <div id="mobile_menu_box">
+                    {% if name == 'electronic' %}
+                        <a href="{% url 'app:lap_top' %}">
+                            لپ تاپ
+                        </a>
+
+                        <a href="{% url 'app:mobile' %}">
+                            گوشی
+                        </a>
+
+                        <a href="{% url 'app:headset' %}">
+                            هدفون، هندزفری
+                        </a>
+
+                        <a href="{% url 'app:charger' %}">
+                            شارژر
+                        </a>
+
+                        <a href="{% url 'app:electronic' %}">
+                                همه
+                        </a>
+
+                    {% elif name == 'homeApp' %}
+                        <a href="{% url 'app:refrigerator' %}">
+                            یخچال
+                        </a>
+
+                        <a href="{% url 'app:TV' %}">
+                            تلوزیون
+                        </a>
+
+                        <a href="{% url 'app:washing_machine' %}">
+                            ماشین لباسشویی
+                        </a>
+
+                        <a href="{% url 'app:sofa' %}">
+                            مبلمان
+                        </a>
+
+                        <a href="{% url 'app:home_app' %}">
+                            همه
+                        </a>
+
+                    {% elif name == 'sport' %}
+                        <a href="{% url 'app:bicycle' %}">
+                            دوچرخه
+                        </a>
+
+                        <a href="{% url 'app:treadmill' %}">
+                            تردمیل
+                        </a>
+
+                        <a href="{% url 'app:ball' %}">
+                            توپ
+                        </a>
+
+                        <a href="{% url 'app:sport' %}">
+                            همه
+                        </a>
+
+                    {% elif name == 'stationery' %}
+                        <a href="{% url 'app:notebook' %}">
+                            دفتر
+                        </a>
+
+                        <a href="{% url 'app:pen' %}">
+                            خودکار
+                        </a>
+
+                        <a href="{% url 'app:crayons' %}">
+                            مداد رنگی
+                        </a>
+
+                        <a href="{% url 'app:eraser' %}">
+                            پاک کن
+                        </a>
+
+                        <a href="{% url 'app:stationery' %}">
+                            همه
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% else %}
+                <div class="gender_menu btn">مردانه</div>
+
+                <div class="clothes_list">
+                    <a href="{% url 'app:shirt' %}">
+                        پیراهن
+                    </a>
+
+                    <a href="{% url 'app:tshirt' %}">
+                        تی شرت
+                    </a>
+
+                    <a href="{% url 'app:male_pants' %}">
+                        شلوار
+                    </a>
+
+                    <a href="{% url 'app:male_clothes' %}">
+                        همه پوشاک مردانه
+                    </a>
+                </div>
+
+                <div class="gender_menu btn">زنانه</div>
+
+                <div class="clothes_list">
+                    <a href="{% url 'app:manto' %}">
+                        مانتو
+                    </a>
+
+                    <a href="{% url 'app:blouse' %}">
+                        بلوز
+                    </a>
+
+                    <a href="{% url 'app:female_pants' %}">
+                        شلوار
+                    </a>
+
+                    <a href="{% url 'app:female_clothes' %}">
+                        همه پوشاک زنانه
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </body>
+</html>

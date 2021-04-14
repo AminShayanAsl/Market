@@ -1,0 +1,56 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/fontawesome.min.css' %}">
+        <script src="{% static 'app/JS/jQuery.js' %}"></script>
+        <script src="{% static 'app/JS/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/bootstrap.min.css' %}">
+        <script src="{% static 'app/JS/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/style.css' %}">
+        <script src="{% static 'app/JS/style.js' %}"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'app/logo/logo.ico' %}" />
+        <title>شایان مارکت</title>
+    </head>
+    <body>
+        <div class="container shadow" id="profile_page">
+
+            <h2>مشخصات حساب کاربری:</h2>
+
+            <div id="image_box" class="d-flex justify-content-center">
+                {% if user.user_img.image.url %}
+                    <img class="rounded-circle shadow" id="profile_img" src="{{ user.user_img.image.url }}">
+                {% else %}
+                    <img class="rounded-circle shadow" id="profile_img" src="{% static 'app/user.png' %}">
+                {% endif %}
+            </div>
+
+            <ul id="info_box" class="shadow">
+                <li id="username_box" class="shadow"><dt>نام کاربری: </dt><dd>{{ user.username }}</dd></li>
+                <li id="fname_box" class="shadow"><dt>نام: </dt><dd>{{ user.first_name }}</dd></li>
+                <li id="lname_box" class="shadow"><dt>نام خانوادگی: </dt><dd>{{ user.last_name }}</dd></li>
+                <li id="address_field" class="shadow"><dt>آدرس:</dt>
+                    <dd>
+                    {% for address in user.location_set.all %}
+                        <ul class="addresses shadow">
+                            <li class="d-inline">استان: </li><span class="state_code">{{ address.state }}</span><br>
+                            <li class="d-inline">شهر: </li><span class="city_code">{{ address.city }}</span>
+                            <li>آدرس: <span>{{ address.address }}</span></li>
+                            <li>کدپستی: <span>{{ address.postal_code }}</span></li>
+                            <li class="delete_address"><a href="{% url 'app:del_address' user_ID=user.id address_id=address.id %}" class="text-danger"><i class="fas fa-minus-circle"></i> حذف آدرس</a></li>
+                        </ul>
+                    {% endfor %}
+                    </dd>
+                    <a id="add_address" href="{% url 'app:add_address' user.id%}"><i class="fas fa-plus-circle"></i> افزودن آدرس</a>
+                    <br>
+                </li>
+
+                <a href="{% url 'app:interesting' user.id %}" id="interesting_link">مشاهده علاقه‌مندی ها <i class="fas fa-heart" id="heart_on"></i></a>
+            </ul>
+            <a class="btn rounded-pill" href="{% url 'app:home' %}" id="go_home">صفحه اصلی فروشگاه</a>
+            <a class="btn rounded-pill bg-danger" href="{% url 'app:logOut' %}" id="exit">خروج از حساب کاربری</a>
+            <br><br>
+        </div>
+    </body>
+</html>

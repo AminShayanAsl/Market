@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock %}
+
+{% block content %}
+    <div class="container shadow" id="cart_page">
+        <h2>سبد خرید :</h2>
+        {% if btn_text == 'ورود به حساب کاربری' %}
+            <div id="logIn_message">کاربر عزیز ،برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید.</div>
+        {% else %}
+            <div id="cart_exsist">
+                <ul id="cart_list">
+                {% for cart in carts %}
+                    <li class="shadow">
+                        <div class="img_group d-inline">
+                            {% for img in cart.good.image_set.all %}
+                                {% load static %}
+                                <img src="{% static img.img_src %}">
+                            {% endfor %}
+                        </div>
+
+                        <span class="cart_item_name">{{ cart.good.name }}</span>
+
+                        {% load humanize %}
+                        <span class="cart_item_price">قیمت : {{ cart.good.real_price|intcomma }} تومان</span>
+
+                        <a href="{% url 'app:del_cart' cart.id %}" class="cart_item_del"><i class="fas fa-minus-circle"></i> حذف</a>
+
+                        <div class="cart_number"><a href="{% url 'app:cart_plus' cart.id %}"><i class="fas fa-plus"></i></a><span>    {{ cart.number }}    </span><a href="{% url 'app:cart_minus' cart.id %}"><i class="fas fa-minus"></i></a></div>
+                    </li>
+                {% endfor %}
+                </ul>
+
+                {% load humanize %}
+                <div id="price_total">
+                    <span>مجموع قیمت :</span><span id="price_total_num">{{ sum|intcomma }} تومان</span>
+
+                    <a href="{% url 'app:choose_address' %}" id="payment" class="button rounded-pill">ادامه فرآیند خرید</a>
+                </div>
+
+                <form action="{% url 'app:cart' %}" method="post" id="discount_code_enter_box">
+                {% csrf_token %}
+                    <label for="discount_code_enter">کد تخفیف :</label>
+                    <input type="text" name="discount_code" id="discount_code_enter" class="form-control">
+                    <button type="submit" class="rounded-pill">اعمال کد تخفیف</button>
+                </form>
+            </div>
+
+            <div id="cart_no_exsist">سبد خرید شما خالی می باشد.</div>
+        {% endif %} 
+    </div>
+{% endblock %}

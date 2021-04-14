@@ -1,0 +1,34 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'app/CSS/jquery-ui.css' %}">
+        <script src="{% static 'app/JS/jQuery.js' %}"></script>
+        <script src="{% static 'app/JS/jquery-ui.js' %}"></script>
+        <script src="{% static 'app/JS/jquery.ui.touch-punch.min.js' %}"></script>
+        <script src="{% static 'app/JS/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/bootstrap.min.css' %}">
+        <script src="{% static 'app/JS/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/style.css' %}">
+        <script src="{% static 'app/JS/style.js' %}"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'app/logo/logo.ico' %}" />
+        <title>شایان مارکت</title>
+    </head>
+    <body>
+        <div class="container shadow" id="choose_address_page">
+            <h2>انتخاب آدرس :</h2>
+            {% for address in user.location_set.all %}
+                <ul class="choose_addresses shadow">
+                    <li>استان: <span class="state_code">{{ address.state }}</span></li>
+                    <li>شهر: <span class="city_code">{{ address.city }}</span></li>
+                    <li>آدرس: <span>{{ address.address }}</span></li>
+                    <li>کدپستی: <span>{{ address.postal_code }}</span></li>
+                    <button class="choose_addresses_btn rounded-pill">انتخاب این آدرس</button>
+                </ul>
+            {% endfor %}
+            <a href="{% url 'app:message' %}" id="payment_btn" class="button rounded-pill">انتقال به صفحه پرداخت</a>
+        </div>
+    </body>
+</html>

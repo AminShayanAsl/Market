@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock includes %}
+
+{% block content %}
+    <div class="container shadow" id="goods_page">
+        <ul id="discount_page_list">
+
+            {% for good in goods %}
+
+                <li class="good_page_item">
+                    <a class="good_link" href="{% url 'app:good_info' good.good.id %}">
+                        {% load static %}
+                        {% for src in good.good.image_set.all %}
+                            <img src="{% static src.img_src %}">
+                        {% endfor %}
+
+                        <span class="good_name">{{ good.good.name }}</span>
+
+                        <div class="good_price">
+                            {% if good.good.num > 0 %}
+                                {% if good.good.discount > 0 %}
+                                    <span class="badge badge-pill discount_item_price_percent">
+                                        {{ good.good.discount }}%
+                                    </span>
+                                    {% load humanize %}
+                                    <del>{{ good.good.price|intcomma }}</del>
+                                    <ins class="discount_item_real_price">{{ good.good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                                {% else %}
+                                    <span class="discount_item_real_price">{{ good.good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                                {% endif %}
+                            {% else %}
+                                <span class="ended">ناموجود</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="num_less">
+                            {% if good.good.num < 10 and good.good.num > 0 %}
+                                تنها {{ good.good.num }} عدد باقی مانده
+                            {% endif %}
+                        </div>
+
+                        <div class="goods_score">
+                            {% if good.good.score_num > 0 %}
+                                <i class="fas fa-star"></i>
+                                <span class="score_mark">{{ good.good.score|floatformat }}</span>
+                                <span class="score_num">({{ good.good.score_num }})</span>
+                            {% endif %}
+                        </div>
+
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="exsist_message">هیچ کالایی در علاقه‌مندی ها موجود نیست.</div>
+        <br><br><hr>
+
+
+        {% if goods.has_other_pages %}
+            <ul class="pagination justify-content-center">
+                {% if goods.has_previous %}
+                    <li><a href="?page={{ goods.previous_page_number }}"><button class="page_button"><i class="fas fa-backward"></i></button></a></li>
+                {% else %}
+                    <li><button class="page_button disabled"><span><i class="fas fa-backward"></i></span></button></li>
+                {% endif %}
+            {% for i in goods.paginator.page_range %}
+                {% if goods.number == i %}
+                    <li><button class="page_button this_page"><span>{{ i }}<span class="sr-only">(current)</span></span></button></li>
+                {% else %}
+                    <li><a href="?page={{ i }}"><button class="page_button">{{ i }}</button></a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if goods.has_next %}
+                <li><a href="?page={{ goods.next_page_number }}"><button class="page_button"><i class="fas fa-forward"></i></button></a></li>
+            {% else %}
+                <li><button class="page_button disabled"><span><i class="fas fa-forward"></i></span></button></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+{% endblock %}

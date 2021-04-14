@@ -1,0 +1,434 @@
+{% extends 'app/base.html' %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock includes %}
+
+{% block content %}
+    <div class="container shadow" id="good_info">
+
+        {# error messages #}
+        <br>
+        {% for error in error_messages %}
+            <div class="alert alert-warning fade show">
+                <button type="button" class="close float-left" data-dismiss="alert">&times;</button>
+                <span>{{ error }}</span>
+            </div>
+        {% endfor %}
+
+        {% for message in messages %}
+            <div class="alert alert-success fade show">
+                <button type="button" class="close float-left" data-dismiss="alert">&times;</button>
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+
+        <div id="images">
+            {% load static %}
+            <img src="{% static good.image_set.all.0.img_src %}" id="first_image">
+            <ul id="image_group" class="d-flex justify-content-start">
+                {% load static %}
+                {% for image in good.image_set.all %}
+                    <li>
+                        <img class="good_images" src="{% static image.img_src %}">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div id="information">
+            {# name #}
+            <span id="good_name">{{ good.name }}</span>
+
+            {# interesting #}
+            <form action="{% url 'app:good_info' good.id %}" method="post" class="d-inline">
+            {% csrf_token %}
+                {% if heart == 'off' %}
+                    <button type="submit" name="interesting" value="true" id="interesting" ><i class="far fa-heart" title="افزودن به علاقه ‌مندی" data-toggle="tooltip" data-placement="bottom"></i></button>
+                {% elif heart == 'on' %}
+                    <button type="submit" name="interesting" value="false" id="interesting" ><i class="fas fa-heart" id="heart_on" title="علاقه ‌مندی ها" data-toggle="tooltip" data-placement="bottom"></i></button>
+                {% endif %}
+            </form>
+
+            {# score #}
+            <div class="goods_score" id="good_score">
+                {% if good.score_num > 0 %}
+                    <i class="fas fa-star" id="stare"></i>
+                    <span class="score_mark">{{ good.score|floatformat }}</span>
+                    <span class="score_num" id="score_number">({{ good.score_num }})</span>
+                {% endif %}
+            </div>
+
+            {# comment #}
+            {% if good.comment_set.all.count > 0 %}
+                <div id="comment_number">{{ good.comment_set.all.count }} نظر کاربران</div>
+            {% endif %}
+
+            {# choose color #}
+            {% if colors.count > 0 %}
+                <form action="{% url 'app:good_info' good.id %}" method="post" id="shopping">
+                {% csrf_token %}
+                    <ul id="color_box" class="justify-content-start d-flex">
+                        <span id="color_title">انتخاب رنگ‌ :</span>
+                        {% for color in colors %}
+                            {% if color.color == 'blue' %}
+                                <li class="color_item">
+                                {% if color.color == this_color %}
+                                    <button type="button" class="choose_color" name="blue" value="true">
+                                        <span>آبی</span>
+                                        <div class="color_shape" id="blue_color"></div>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="choose_color" name="blue" value="false">
+                                        <span>آبی</span>
+                                        <div class="color_shape" id="blue_color"></div>
+                                    </button>
+                                {% endif %}
+                                </li>
+                            {% elif color.color == 'black' %}
+                                <li class="color_item">
+                                {% if color.color == this_color %}
+                                    <button type="button" class="choose_color" name="black" value="true">
+                                        <span>مشکی</span>
+                                        <div class="color_shape" id="black_color"></div>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="choose_color" name="black" value="false">
+                                        <span>مشکی</span>
+                                        <div class="color_shape" id="black_color"></div>
+                                    </button>
+                                {% endif %}
+                                </li>
+                            {% elif color.color == 'gray' %}
+                                <li class="color_item">
+                                {% if color.color == this_color %}
+                                    <button type="button" class="choose_color" name="gray" value="true">
+                                        <span>طوسی</span>
+                                        <div class="color_shape" id="gray_color"></div>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="choose_color" name="gray" value="false">
+                                        <span>طوسی</span>
+                                        <div class="color_shape" id="gray_color"></div>
+                                    </button>
+                                {% endif %}
+                                </li>
+                            {% elif color.color == 'brown' %}
+                                <li class="color_item">
+                                {% if color.color == this_color %}
+                                    <button type="button" class="choose_color" name="brown" value="true">
+                                        <span>قهوه‌ای</span>
+                                        <div class="color_shape" id="brown_color"></div>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="choose_color" name="brown" value="false">
+                                        <span>قهوه‌ای</span>
+                                        <div class="color_shape" id="brown_color"></div>
+                                    </button>
+                                {% endif %}
+                                </li>
+                            {% elif color.color == 'navy' %}
+                                <li class="color_item">
+                                {% if color.color == this_color %}
+                                    <button type="button" class="choose_color" name="navy" value="true">
+                                        <span>سرمه‌ای</span>
+                                        <div class="color_shape" id="navy_color"></div>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="choose_color" name="navy" value="false">
+                                        <span>سرمه‌ای</span>
+                                        <div class="color_shape" id="navy_color"></div>
+                                    </button>
+                                {% endif %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </form>
+
+            {% elif good.category == 'Clothes' %}
+                <form action="{% url 'app:good_info' good.id %}" method="post" id="shopping">
+                {% csrf_token %}
+                {% if good.clothes.category_clothes == 'Shirt' or good.clothes.category_clothes == 'Tshirt' %}
+                    <div id="size">
+                        <span>انتخاب سایز :</span>
+                        <select name="size" id="size_select">
+                            {% for size in sizes %}
+                                <option value={{ size.size }}>{{ size.size }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+                </form>
+
+            {% else %}
+                <form action="{% url 'app:good_info' good.id %}" method="post" id="shopping">
+                {% csrf_token %}
+                </form>
+            {% endif %}
+
+            {# price box #}
+            <div id="price_box">
+                {% if good.num > 0 %}
+                    {% if good.discount > 0 %}
+                        <span class="badge badge-pill discount_item_price_percent">
+                            {{ good.discount }}%
+                        </span>
+                        {% load humanize %}
+                        <del class="discount_del">{{ good.price|intcomma }}</del>
+                        <ins class="discount_item_real_price" id="price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                    {% else %}
+                        <span class="discount_item_real_price" id="price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                    {% endif %}
+
+                    {% if good.num < 10 and good.num > 0 %}
+                        <span id="less">تنها {{ good.num }} عدد باقی مانده<i class="far fa-bell"></i></span>
+                    {% endif %}
+
+                    <button id="btn_shop" type="submit" name="add_cart" value="false" class="btn-block rounded-pill btn_add_cart" form="shopping">افزودن به سبد خرید</button>
+
+                {% else %}
+                    <span class="ended no_exsist">ناموجود</span>
+
+                    <button id="btn_shop" class="btn-block rounded-pill btn_disable" type="button">غیرقابل افزودن به سبد خرید</button>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {# related good #}
+        <span id="related_title">محصولات مرتبط :</span>
+        <div id="related_box_fill">
+            <div id="score_box" class="related_box">
+                <ul id="score" class="d-flex justify-content-around related">
+                    {% for elem in related_goods %}
+                        {% if elem.num > 0 %}
+                            <li class="score_item">
+                                <a class="score_item_link" href="{% url 'app:good_info' elem.id %}">
+                                    {% load static %}
+                                    {% for src in elem.image_set.all %}
+                                        <img src="{% static src.img_src %}">
+                                    {% endfor %}
+
+                                    <span class="score_item_name">{{ elem.name }}</span>
+
+                                    <div class="score_item_price">
+                                        {% if elem.discount > 0 %}
+                                            <span class="badge badge-pill discount_item_price_percent">
+                                                {{ elem.discount }}%
+                                            </span>
+                                            {% load humanize %}
+                                            <del>{{ elem.price|intcomma }}</del>
+                                            <ins class="discount_item_real_price">{{ elem.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                                        {% else %}
+                                            <span class="discount_item_real_price">{{ elem.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if elem.score > 0 %}
+                                        <div class="score">
+                                            <i class="fas fa-star"></i>
+                                            <span class="score_mark">{{ elem.score|floatformat }}</span>
+                                            <span class="score_num">({{ elem.score_num }})</span>
+                                        </div>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="slideback" type="button" onclick="back('score_box')"><i class="fas fa-angle-left"></i></div>
+            <div id="slidenext" type="button" onclick="next('score_box')"><i class="fas fa-angle-right"></i></div>
+        </div>
+
+        <ul class="nav nav-pills justify-content-start" id="nav_item">
+            <li class="nav-item">
+                <a href="#info" class="nav-link active" data-toggle="pill" id="info_link"><i class="far fa-question-circle"></i> مشخصات</a>
+            </li>
+            <li class="nav-item">
+                <a href="#comment" class="nav-link" data-toggle="pill" id="comment_link"><i class="far fa-comments"></i> نظرات کاربران</a>
+            </li>
+        </ul>
+        <hr>
+        <div class="tab-content" id="tab">
+            <div role="tabpanel" class="tab-pane active" id="info">
+                <ul id="info_list">
+                {% if good.category == 'Electronic' %}
+                    {% if good.electronic.category_elec == 'LapTop' %}
+                        <li class="shadow"><span>ظرفیت حافظه داخلی</span><span class="value">{{ good.electronic.laptop.storage }} گیگابایت</span></li>
+                        <li class="shadow"><span>ظرفیت حافظه رم</span><span class="value">{{ good.electronic.laptop.ram }} گیگابایت</span></li>
+                    {% elif good.electronic.category_elec == 'Mobile' %}
+                        <li class="shadow"><span>حافظه داخلی</span><span class="value">{{ good.electronic.mobile.memory }} گیگابایت</span></li>
+                        <li class="shadow"><span>مقدار رم</span><span class="value">{{ good.electronic.mobile.ram }} گیگابایت</span></li>
+                    {% elif good.electronic.category_elec == 'Headset' %}
+                        <li class="shadow">
+                            <span>نوع اتصال</span>
+                            <span class="value">
+                            {% if good.electronic.headset.connectionType == 'wireless' %}
+                                بی سیم
+                            {% else %}
+                                با سیم
+                            {% endif %}
+                            </span>
+                        </li>
+                        <li class="shadow">
+                            <span>نشانگر LED</span>
+                            <span class="value">
+                                {% if good.electronic.headset.led_indicator %}
+                                    دارد
+                                {% else %}
+                                    ندارد
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% elif good.electronic.category_elec == 'Charger' %}
+                        <li class="shadow"><span>تعداد درگاه خروجی</span><span class="value">{{ good.electronic.charger.usb_num }} عدد</span></li>
+                        <li class="shadow">
+                            <span>کابل همراه</span>
+                            {% if good.electronic.charger.cable_type == 'C' %}
+                            <span class="value">USB-C</span>
+                            {% else %}
+                            <span class="value">microUSB</span>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+
+                {% elif good.category == 'Clothes' %}
+                    <li class="shadow"><span>جنس</span><span class="value">{{ good.clothes.type }}</span></li>
+                    {% if good.clothes.category_clothes == 'Shirt' %}
+                        <li class="shadow">
+                            <span>قد آستین</span>
+                            <span class="value">
+                                {% if good.clothes.shirt.sleeve_height != 'Long' %}
+                                    کوتاه
+                                {% elif good.clothes.shirt.sleeve_height == 'Long' %}
+                                    بلند
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% elif good.clothes.category_clothes == 'Tshirt' %}
+                        <li class="shadow"><span>یقه</span><span class="value">{{ good.clothes.tshirt.collar }}</span></li>
+                    {% elif good.clothes.category_clothes == 'Pants' %}
+                        <li class="shadow"><span>مدل</span><span class="value">{{ good.clothes.pants.model }}</span></li>
+                    {% elif good.clothes.category_clothes == 'Manto' %}
+                        <li class="shadow"><span>نحوه بسته شدن</span><span class="value">{{ good.clothes.manto.how_close }}</span></li>
+                        <li class="shadow"><span>کمربند</span><span class="value">{{ good.clothes.manto.belt }}</span></li>
+                    {% elif good.clothes.category_clothes == 'Blouse' %}
+                        <li class="shadow"><span>یقه</span><span class="value">{{ good.clothes.blouse.collar }}</span></li>
+                    {% endif %}
+                {% elif good.category == 'HomeAppliances' %}
+                    {% if good.homeappliances.category_happ == 'Refrigerator' %}
+                        <li class="shadow"><span>ارتفاع</span><span class="value">{{ good.homeappliances.refrigerator.height }} میلی متر</span></li>
+                        <li class="shadow"><span>عمق</span><span class="value">{{ good.homeappliances.refrigerator.deep }} میلی متر</span></li>
+                    {% elif good.homeappliances.category_happ == 'TV' %}
+                        <li class="shadow"><span>سایز</span><span class="value">{{ good.homeappliances.tv.size }} اینچ</span></li>
+                        <li class="shadow">
+                            <span>بلوتوث</span>
+                            <span class="value">
+                                {% if good.homeappliances.tv.bluetooth %}
+                                    دارد
+                                {% else %}
+                                    ندارد
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% elif good.homeappliances.category_happ == 'Washing_machine' %}
+                        <li class="shadow"><span>ظرفیت دیگ</span><span class="value">{{ good.homeappliances.washing_machine.capacity }} کیلوگرم</span></li>
+                        <li class="shadow"><span>ارتفاع</span><span class="value">{{ good.homeappliances.washing_machine.height }} میلی متر</span></li>
+                    {% elif good.homeappliances.category_happ == 'Sofa' %}
+                        <li class="shadow"><span>جنس کلاف</span><span class="value">{{ good.homeappliances.sofa.bodyMaterial }}</span></li>
+                        <li class="shadow"><span>جنس روکش</span><span class="value">{{ good.homeappliances.sofa.coverMaterial }}</span></li>
+                    {% endif %}
+                {% elif good.category == 'Sport' %}
+                    {% if good.sport.category_sport == 'Bicycle' %}
+                        <li class="shadow"><span>وزن</span><span class="value">{{ good.sport.bicycle.weight }} کیلوگرم</span></li>
+                        <li class="shadow"><span>سایز</span><span class="value">{{ good.sport.bicycle.size }}</span></li>
+                    {% elif good.sport.category_sport == 'Treadmill' %}
+                        <li class="shadow"><span>وزن</span><span class="value">{{ good.sport.treadmill.self_weight }} کیلوگرم</span></li>
+                        <li class="shadow"><span>حداکثر تحمل وزن</span><span class="value">{{ good.sport.treadmill.max_weight }} کیلوگرم</span></li>
+                    {% elif good.sport.category_sport == 'Ball' %}
+                        <li class="shadow"><span>سایز</span><span class="value">{{ good.sport.ball.size }}</span></li>
+                        <li class="shadow"><span>وزن</span><span class="value">{{ good.sport.ball.weight }} کیلوگرم</span></li>
+                    {% endif %}
+                {% elif good.category == 'Stationery' %}
+                    {% if good.stationery.category_st == 'NoteBook' %}
+                        <li class="shadow"><span>تعداد برگ</span><span class="value">{{ good.stationery.notebook.num_pages }} برگ</span></li>
+                    {% elif good.stationery.category_st == 'Pen' %}
+                        <li class="shadow">
+                            <span>رنگ</span>
+                            <span class="value">
+                                {% if good.stationery.pen.color != 'black' or good.stationery.pen.color != 'red' %}
+                                    آبی
+                                {% elif good.stationery.pen.color == 'black' %}
+                                    مشکی
+                                {% elif good.stationery.pen.color == 'red' %}
+                                    قرمز
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% elif good.stationery.category_st == 'Crayons' %}
+                        <li class="shadow"><span>تعداد موجود در بسته</span><span class="value">{{ good.stationery.crayons.num }} عدد</span></li>
+                    {% elif good.stationery.category_st == 'Eraser' %}
+                        <li class="shadow"><span>وزن</span><span class="value">{{ good.stationery.eraser.weight }} گرم</span></li>
+                    {% endif %}
+                {% endif %}
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane active fade" id="comment">
+                <form action="{% url 'app:good_info' good.id %}" method="post">
+                {% csrf_token %}
+                    <div id="comment_score">
+                        <span id="comment_score_title">امتیاز شما به این کالا :</span>
+                        <span id="stars">
+                            <span class="star">
+                                <i class="fas fa-star" id="star_5"></i>
+                            </span>
+                            <span class="star">
+                                <i class="fas fa-star" id="star_4"></i>
+                            </span>
+                            <span class="star">
+                                <i class="fas fa-star" id="star_3"></i>
+                            </span>
+                            <span class="star">
+                                <i class="fas fa-star" id="star_2"></i>
+                            </span>
+                            <span class="star">
+                                <i class="fas fa-star" id="star_1"></i>
+                            </span>
+                            <input type="text" name="star" id="star_input" class="d-none" value=0>
+                        </span>
+                        <span id="score_num">
+                            <span>۵</span>
+                            <span>۴</span>
+                            <span>۳</span>
+                            <span>۲</span>
+                            <span>۱</span>
+                        </span>
+                    </div>
+
+                    <div id="comment_text">
+                        <span id="comment_text_title">نظر شما در مورد این کالا :</span>
+                        <textarea name="comment_text" id="comment_box" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="rounded-pill" id="comment_form_btn">ثبت امتیاز و نظر</button>
+                    <hr>
+                </form>
+
+                <ul id="comment_list">
+                    <span id="comment_title">نظرات :</span>
+                    {% for comment in comments %}
+                        <li class="shadow">
+                            <span id="comment_name">{{ comment.name }}</span>
+                            <div id="comment_txt">{{ comment.text }}</div>
+                            <span class="d-block" id="comment_date">{{ comment.date|date:"Y-m-d" }}</span>
+                        </li>
+                    {% endfor %}
+                    <span id="no_comment">فعلا هیچ نظری ثبت نشده است.</span>
+                </ul>
+            </div>
+        </div>
+
+        <br><br><br><br><br>
+    </div>
+{% endblock %}

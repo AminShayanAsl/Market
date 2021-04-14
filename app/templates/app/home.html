@@ -1,0 +1,208 @@
+{% extends "app/base.html" %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock includes %}
+
+{% block content %}
+
+
+<div class="container shadow" id="home">
+
+    {# discount code #}
+    <div id="discount_code_box">
+        <div id="discount_code_title"><div class="led">٪ ۱۰</div><i class="fas fa-leaf leaf_icon"></i> تخفیف بهاری <i class="fas fa-leaf leaf_icon mirror"></i><span class="led">٪ ۱۰</span></div>
+
+        <span id="discount_text">شما ،مشتریان عزیز هنگام خرید کردن از فروشگاه اینترتی <strong>شایان مارکت</strong> میتوانید با وارد کردن کد زیر از <strong>۱۰ ٪</strong> تخفیف بهره ‌مند شوید.</span>
+
+        <div id="discount_code">
+            <span>کد تخفیف :</span>
+
+            <strong>{{ dis_code }}</strong>
+
+            <div class="d-inline">
+                <i id="btn_copy_discount_code" class="fas fa-cloud" title="کپی" data-toggle="tooltip" data-placement="left"></i>
+                <i id="copy_sign" class="far fa-clipboard" title="کپی" data-toggle="tooltip" data-placement="left"></i>
+            </div>
+        </div>
+    </div>
+
+    {# image #}
+    <div id="img_box">
+        <div id="home_image" class="carousel slide container" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#home_image" data-slide-to="0" class="active"></li>
+                <li data-target="#home_image" data-slide-to="1"></li>
+                <li data-target="#home_image" data-slide-to="2"></li>
+                <li data-target="#home_image" data-slide-to="3"></li>
+                <li data-target="#home_image" data-slide-to="4"></li>
+                <li data-target="#home_image" data-slide-to="5"></li>
+            </ul>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" id="img_electronic">
+                    {% load static %}
+                    <img src="{% static 'app/image/digital.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>بهترین و جدید‌ترین لوازم الکترونیک</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item" id="img_man_clothes">
+                    {% load static %}
+                    <img src="{% static 'app/image/man_clothes.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>باکیفیت ترین لباس های مردانه</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item" id="img_women_clothes">
+                    {% load static %}
+                    <img src="{% static 'app/image/women_clothes.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>شیک ترین لباس های زنانه</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item" id="img_sofa">
+                    {% load static %}
+                    <img src="{% static 'app/image/sofa.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>راحت ترین مبل ها</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item" id="img_ball">
+                    {% load static %}
+                    <img src="{% static 'app/image/ball.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>با کیفیت ترین و ارزان ترین توپ ها</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item" id="img_Discount">
+                    {% load static %}
+                    <img src="{% static 'app/image/Discount.jpg' %}">
+                    <div class="carousel-caption">
+                        <h4>بیشترین تخفیفات</h4>
+                        <h5>در فروشگاه اینترنتی شایان‌مارکت</h5>
+                    </div>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#home_image" data-slide="prev">
+                <i class="fas fa-chevron-circle-left"></i>
+            </a>
+
+            <a class="carousel-control-next" href="#home_image" data-slide="next">
+                <i class="fas fa-chevron-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    {# corona message #}
+    <div id="corona_message">
+        <h2>لبخندتان</h2>
+        <h3>زیباست ولی</h3>
+        <h3>فعلا ماسک بزنید.</h3>
+        <i class="fas fa-smile"></i>
+        <h5>#کرونا-را-شکست-میدهیم.</h5>
+    </div>
+
+    {# discount_list #}
+    <span id="discount_title">تخفیفات شگفت انگیز :</span>
+    <a href="{% url 'app:discount' %}" id="all_discount_link">نمایش همه</a>
+    <div id="discount_box_fill">
+        <div id="discount_box">
+            <ul id="discount" class="d-flex justify-content-around">
+                {% for good in discount_list %}
+
+                    {% if good.num > 0 %}
+                    <li class="discount_item">
+                        <a class="discount_item_link" href="{% url 'app:good_info' good.id %}">
+                            {% load static %}
+                            {% for src in good.image_set.all %}
+                                <img src="{% static src.img_src %}">
+                            {% endfor %}
+
+                            <span class="discount_item_name">{{ good.name }}</span>
+
+                            <div class="discount_item_price">
+                                <span class="badge badge-pill discount_item_price_percent">
+                                    {{ good.discount }}%
+                                </span>
+                                {% load humanize %}
+                                <del>{{ good.price|intcomma }}</del>
+                                <ins class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                            </div>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="slideBack" type="button" onclick="back('discount_box')"><i class="fas fa-angle-left"></i></div>
+        <div id="slide" type="button" onclick="next('discount_box')"><i class="fas fa-angle-right"></i></div>
+    </div>
+
+    {# best scores #}
+    <span id="score_title">محبوب ترین کالا ها :</span>
+    <a href="{% url 'app:score' %}" id="all_score_link">نمایش همه</a>
+    <div id="score_box_fill">
+        <div id="score_box">
+            <ul id="score" class="d-flex justify-content-around">
+                {% for good in score_list %}
+                    {% if good.score > 0 %}
+                        <li class="score_item">
+                            <a class="score_item_link" href="{% url 'app:good_info' good.id %}">
+                                {% load static %}
+                                {% for src in good.image_set.all %}
+                                    <img src="{% static src.img_src %}">
+                                {% endfor %}
+
+                                <span class="score_item_name">{{ good.name }}</span>
+
+                                <div class="score_item_price">
+                                    {% if good.discount > 0 %}
+                                        <span class="badge badge-pill discount_item_price_percent">
+                                            {{ good.discount }}%
+                                        </span>
+                                        {% load humanize %}
+                                        <del>{{ good.price|intcomma }}</del>
+                                        <ins class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                                    {% else %}
+                                        <span class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="score">
+                                    <i class="fas fa-star"></i>
+                                    <span class="score_mark">{{ good.score|floatformat }}</span>
+                                    <span class="score_num">({{ good.score_num }})</span>
+                                </div>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="slideback" type="button" onclick="back('score_box')"><i class="fas fa-angle-left"></i></div>
+        <div id="slidenext" type="button" onclick="next('score_box')"><i class="fas fa-angle-right"></i></div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div id="go_up_box">
+            <span>برگشت به بالا</span>
+            <i class="far fa-hand-point-up" id="go_up"></i>
+        </div>
+    </div>
+
+    <br>
+</div>
+{% endblock %}

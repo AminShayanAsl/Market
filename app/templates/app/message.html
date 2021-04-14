@@ -1,0 +1,27 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'app/CSS/jquery-ui.css' %}">
+        <script src="{% static 'app/JS/jQuery.js' %}"></script>
+        <script src="{% static 'app/JS/jquery-ui.js' %}"></script>
+        <script src="{% static 'app/JS/jquery.ui.touch-punch.min.js' %}"></script>
+        <script src="{% static 'app/JS/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/bootstrap.min.css' %}">
+        <script src="{% static 'app/JS/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/style.css' %}">
+        <script src="{% static 'app/JS/style.js' %}"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'app/logo/logo.ico' %}" />
+        <title>شایان مارکت</title>
+    </head>
+    <body>
+        <div class="container shadow" id="message_page">
+            <h2>این سایت تنها جهت تست ایجاد شده است و ماهیت واقعی ندارد.</h2>
+            <h4>با تشکر</h4>
+
+            <a href="{% url 'app:home' %}" class="button rounded-pill" id="goto_home">برگشت به صفحه اصلی</a>
+        </div>
+    </body>
+</html>

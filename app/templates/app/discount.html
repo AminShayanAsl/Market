@@ -1,0 +1,54 @@
+{% extends "app/base.html" %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock includes %}
+
+{% block content %}
+    <div class="container shadow discount_page" id="discount_page">
+        {% if title == 'discount' %}
+            <span class="page_title">تخفیفات شگفت انگیز:</span>
+        {% elif title == 'score' %}
+            <span class="page_title">محبوب ترین کالا ها:</span>
+        {% endif %}
+        <ul id="discount_page_list">
+            {% for good in goods %}
+
+                {% if good.num > 0 %}
+                    <li class="discount_page_item">
+                        <a class="good_link" href="{% url 'app:good_info' good.id %}">
+                            {% load static %}
+                            {% for src in good.image_set.all %}
+                                <img src="{% static src.img_src %}">
+                            {% endfor %}
+
+                            <span class="good_name">{{ good.name }}</span>
+
+                            <div class="good_price">
+                                {% if good.discount > 0 %}
+                                    <span class="badge badge-pill discount_item_price_percent">
+                                        {{ good.discount }}%
+                                    </span>
+                                    {% load humanize %}
+                                    <del>{{ good.price|intcomma }}</del>
+                                    <ins class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                                {% else %}
+                                    <span class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                                {% endif %}
+                            </div>
+
+                            <div class="good_score">
+                                {% if good.score_num > 0 %}
+                                    <i class="fas fa-star"></i>
+                                    <span class="score_mark">{{ good.score|floatformat }}</span>
+                                    <span class="score_num">({{ good.score_num }})</span>
+                                {% endif %}
+                            </div>
+
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,1201 @@
+{% extends 'app/base.html' %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock %}
+
+{% block content %}
+    <div id="filter_box" class="rounded">
+        {% if group == 'all' %}
+            <form action="{% url 'app:all' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'all_elec' %}
+            <form action="{% url 'app:electronic' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'all_home_app' %}
+            <form action="{% url 'app:home_app' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'all_male_clothes' %}
+            <form action="{% url 'app:male_clothes' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'all_female_clothes' %}
+            <form action="{% url 'app:female_clothes' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'lap_top' %}
+            <form action="{% url 'app:lap_top' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <div class="brand shadow">
+                    برند
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_asus_chk"> ایسوس<span class="brand_name">ASUS</span>
+                        <input type="text" name="brand_asus" value={{ brand_asus }} id="asus_bool" class="d-none">
+                    </div>
+
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_huawei_chk"> هوآوی<span class="brand_name">Huawei</span>
+                        <input type="text" name="brand_huawei" value={{ brand_huawei }} id="huawei_bool" class="d-none">
+                    </div>
+
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_apple_chk"> اپل<span class="brand_name">Apple</span>
+                        <input type="text" name="brand_apple" value={{ brand_apple }} id="apple_bool" class="d-none">
+                    </div>
+                </div>
+
+                <div class="storage shadow">
+                    ظرفیت حافظه داخلی
+                    <div class="storage_group">
+                        <div class="storage_item">
+                            {% if storage == '16_500' %}
+                                <input type="radio" class="answer" name="storage" value="16_500" checked="checked"> 16 GB تا 500 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="16_500"> 16 GB تا 500 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '500_1000' %}
+                                <input type="radio" class="answer" name="storage" value="500_1000" checked="checked"> 500 GB تا 1000 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="500_1000"> 500 GB تا 1000 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '1000_1500' %}
+                                <input type="radio" class="answer" name="storage" value="1000_1500" checked="checked"> 1000 GB تا 1500 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="1000_1500"> 1000 GB تا 1500 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '1500_2000' %}
+                                <input type="radio" class="answer" name="storage" value="1500_2000" checked="checked"> 1500 GB تا 2000 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="1500_2000"> 1500 GB تا 2000 GB
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="RAM shadow">
+                    ظرفیت حافظه RAM
+                    <div class="RAM_group">
+                        <div class="RAM_item">
+                            {% if ram == '1_4' %}
+                                <input type="radio" class="answer" name="RAM" value="1_4" checked="checked"> 1 GB تا 4 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="1_4"> 1 GB تا 4 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '4_8' %}
+                                <input type="radio" class="answer" name="RAM" value="4_8" checked="checked"> 4 GB تا 8 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="4_8"> 4 GB تا 8 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '8_16' %}
+                                <input type="radio" class="answer" name="RAM" value="8_16" checked="checked"> 8 GB تا 16 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="8_16"> 8 GB تا 16 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '16_32' %}
+                                <input type="radio" class="answer" name="RAM" value="16_32" checked="checked"> 16 GB تا 32 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="16_32"> 16 GB تا 32 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '32_64' %}
+                                <input type="radio" class="answer" name="RAM" value="32_64" checked="checked"> 32 GB تا 64 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="32_64"> 32 GB تا 64 GB
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'mobile' %}
+            <form action="{% url 'app:mobile' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <div class="brand shadow">
+                    برند
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_asus_chk"> سامسونگ<span class="brand_name">Samsung</span>
+                        <input type="text" name="brand_asus" value={{ brand_asus }} id="asus_bool" class="d-none">
+                    </div>
+
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_huawei_chk"> هوآوی<span class="brand_name">Huawei</span>
+                        <input type="text" name="brand_huawei" value={{ brand_huawei }} id="huawei_bool" class="d-none">
+                    </div>
+
+                    <div class="brand_item">
+                        <input type="checkbox" id="brand_apple_chk"> اپل<span class="brand_name">Apple</span>
+                        <input type="text" name="brand_apple" value={{ brand_apple }} id="apple_bool" class="d-none">
+                    </div>
+                </div>
+
+                <div class="storage shadow">
+                    حافظه داخلی
+                    <div class="storage_group">
+                        <div class="storage_item">
+                            {% if storage == '0_16' %}
+                                <input type="radio" class="answer" name="storage" value="0_16" checked="checked"> 0 GB تا 16 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="0_16"> 0 GB تا 16 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '16_200' %}
+                                <input type="radio" class="answer" name="storage" value="16_200" checked="checked"> 16 GB تا 200 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="16_200"> 16 GB تا 200 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '200_500' %}
+                                <input type="radio" class="answer" name="storage" value="200_500" checked="checked"> 200 GB تا 500 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="200_500"> 200 GB تا 500 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="storage_item">
+                            {% if storage == '500_1000' %}
+                                <input type="radio" class="answer" name="storage" value="500_1000" checked="checked"> 500 GB تا 1000 GB
+                            {% else %}
+                                <input type="radio" name="storage" value="500_1000"> 500 GB تا 1000 GB
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="RAM shadow">
+                    مقدار RAM
+                    <div class="RAM_group">
+                        <div class="RAM_item">
+                            {% if ram == '0_4' %}
+                                <input type="radio" class="answer" name="RAM" value="0_4" checked="checked"> 0 GB تا 4 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="0_4"> 0 GB تا 4 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '4_6' %}
+                                <input type="radio" class="answer" name="RAM" value="4_6" checked="checked"> 4 GB تا 6 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="4_6"> 4 GB تا 6 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '6_8' %}
+                                <input type="radio" class="answer" name="RAM" value="6_8" checked="checked"> 6 GB تا 8 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="6_8"> 6 GB تا 8 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '8_12' %}
+                                <input type="radio" class="answer" name="RAM" value="8_12" checked="checked"> 8 GB تا 12 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="8_12"> 8 GB تا 12 GB
+                            {% endif %}
+                        </div>
+
+                        <div class="RAM_item">
+                            {% if ram == '12_16' %}
+                                <input type="radio" class="answer" name="RAM" value="12_16" checked="checked"> 12 GB تا 16 GB
+                            {% else %}
+                                <input type="radio" name="RAM" value="12_16"> 12 GB تا 16 GB
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'headset' %}
+            <form action="{% url 'app:headset' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="led_chk"> نشانگر LED
+                    <input type="text" name="led" value={{ led }} id="led_bool" class="d-none">
+                </div>
+
+                <div class="connectionType shadow">
+                    نوع اتصال
+                    <div class="connectionType_item">
+                        {% if connection == 'wire' %}
+                            <input type="radio" class="answer" name="connection" value="wire" checked="checked"> با سیم
+                        {% else %}
+                            <input type="radio" name="connection" value="wire"> با سیم
+                        {% endif %}
+                    </div>
+
+                    <div class="storage_item">
+                        {% if connection == 'wireless' %}
+                            <input type="radio" class="answer" name="connection" value="wireless" checked="checked"> بدون سیم
+                        {% else %}
+                            <input type="radio" name="connection" value="wireless"> بدون سیم
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input name="page_number" type="text" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'charger' %}
+            <form action="{% url 'app:charger' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="cable_type shadow">
+                    نوع درگاه خروجی
+                    <div class="cable_type_item">
+                        {% if cable_type == 'C' %}
+                            <input type="radio" class="answer" name="cable_type" value="C" checked="checked"> USB-C
+                        {% else %}
+                            <input type="radio" name="cable_type" value="C"> USB-C
+                        {% endif %}
+                    </div>
+
+                    <div class="cable_type_item">
+                        {% if cable_type == 'Micro' %}
+                            <input type="radio" class="answer" name="cable_type" value="Micro" checked="checked"> USB-micro
+                        {% else %}
+                            <input type="radio" name="cable_type" value="Micro"> USB-micro
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'shirt' %}
+            <form action="{% url 'app:shirt' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="sleeve_height shadow">
+                    قد آستین
+                    <div class="sleeve_height_item">
+                        {% if sleeve_height == 'Short' %}
+                            <input type="radio" class="answer" name="sleeve_height" value="Short" checked="checked"> کوتاه
+                        {% else %}
+                            <input type="radio" name="sleeve_height" value="Short"> کوتاه
+                        {% endif %}
+                    </div>
+
+                    <div class="sleeve_height_item">
+                        {% if sleeve_height == 'Long' %}
+                            <input type="radio" class="answer" name="sleeve_height" value="Long" checked="checked"> بلند
+                        {% else %}
+                            <input type="radio" name="sleeve_height" value="Long"> بلند
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'tshirt' %}
+            <form action="{% url 'app:tshirt' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'male_pants' %}
+            <form action="{% url 'app:male_pants' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'female_pants' %}
+            <form action="{% url 'app:female_pants' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'manto' %}
+            <form action="{% url 'app:manto' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'blouse' %}
+            <form action="{% url 'app:blouse' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'refrigerator' %}
+            <form action="{% url 'app:refrigerator' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="brand_refrigerator shadow">
+                    برند
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'Emersun' %}
+                            <input type="radio" class="answer" name="brand" value="Emersun" checked="checked"> امرسان<span class="brand_name">Emersun</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="Emersun"> امرسان<span class="brand_name">Emersun</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'Snowa' %}
+                            <input type="radio" class="answer" name="brand" value="Snowa" checked="checked"> اسنوا<span class="brand_name">Snowa</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="Snowa"> اسنوا<span class="brand_name">Snowa</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'tv' %}
+            <form action="{% url 'app:TV' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="led_chk"> بلوتوث
+                    <input type="text" name="bluetooth" value={{ bluetooth }} id="led_bool" class="d-none">
+                </div>
+
+                <div class="brand_refrigerator shadow">
+                    برند
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'LG' %}
+                            <input type="radio" class="answer" name="brand" value="LG" checked="checked"> ال جی<span class="brand_name">LG</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="LG"> ال جی<span class="brand_name">LG</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'Samsung' %}
+                            <input type="radio" class="answer" name="brand" value="Samsung" checked="checked"> سامسونگ<span class="brand_name">Samsung</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="Samsung"> سامسونگ<span class="brand_name">Samsung</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'washing_machine' %}
+            <form action="{% url 'app:washing_machine' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="brand_refrigerator shadow">
+                    برند
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'Bosch' %}
+                            <input type="radio" class="answer" name="brand" value="Bosch" checked="checked"> بوش<span class="brand_name">Bosch</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="Bosch"> بوش<span class="brand_name">Bosch</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="brand_refrigerator_item">
+                        {% if brand == 'Gplus' %}
+                            <input type="radio" class="answer" name="brand" value="Gplus" checked="checked"> جی پلاس<span class="brand_name">Gplus</span>
+                        {% else %}
+                            <input type="radio" name="brand" value="Gplus"> جی پلاس<span class="brand_name">Gplus</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'sofa' %}
+            <form action="{% url 'app:sofa' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'all_sport' %}
+            <form action="{% url 'app:sport' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'bicycle' %}
+            <form action="{% url 'app:bicycle' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'treadmill' %}
+            <form action="{% url 'app:treadmill' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'ball' %}
+            <form action="{% url 'app:ball' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'stationery' %}
+            <form action="{% url 'app:stationery' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'notebook' %}
+            <form action="{% url 'app:notebook' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'pen' %}
+            <form action="{% url 'app:pen' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'crayons' %}
+            <form action="{% url 'app:crayons' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% elif group == 'eraser' %}
+            <form action="{% url 'app:eraser' %}" method="post" id="filter_form">
+                {% csrf_token %}
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" value="off" id="discount_chk"> فقط کالا‌های با‌ تخفیف
+                    <input type="text" name="discount" value={{ discount }} id="discount_bool" class="d-none">
+                </div>
+
+                <div class="checkbox shadow">
+                    <input type="checkbox" id="exsist_chk"> فقط کالا‌های موجود
+                    <input type="text" name="exsist" value={{ exsist }} id="exsist_bool" class="d-none">
+                </div>
+
+                <div class="range shadow">
+                    محدوده قیمت
+                    <div class="slider"></div>
+                    <input id="max_val" type="text" name="Max_val" value={{ max_price }} readonly="readonly">
+                    <input id="min_val" type="text" name="Min_val" value={{ min_price }} readonly="readonly">
+                    <div class="d-inline max_price_text">تومان</div>
+                    <div class="d-inline min_price_text">تومان</div>
+                </div>
+
+                <input type="text" name="page_number" value="{{ page_number }}" id="page_num" class="d-none">
+
+                <input type="submit" value="اعمال فیلتر" id="filter_btn" class="btn btn-block rounded-pill shadow">
+            </form>
+
+        {% endif %}
+    </div>
+
+    <div class="container shadow" id="goods_page">
+
+        <button id="mobile_filter_btn" class="rounded-pill">فیلتر <i class="fas fa-filter"></i></button>
+
+        <div id="mobile_filter_box"><i class="far fa-times-circle" id="filter_box_close"></i></div>
+
+        <ul id="discount_page_list">
+
+            {% for good in goods %}
+
+                <li class="good_page_item">
+                    <a class="good_link" href="{% url 'app:good_info' good.id %}">
+                        {% load static %}
+                        {% for src in good.image_set.all %}
+                            <img src="{% static src.img_src %}">
+                        {% endfor %}
+
+                        <span class="good_name">{{ good.name }}</span>
+
+                        <div class="good_price">
+                            {% if good.num > 0 %}
+                                {% if good.discount > 0 %}
+                                    <span class="badge badge-pill discount_item_price_percent">
+                                        {{ good.discount }}%
+                                    </span>
+                                    {% load humanize %}
+                                    <del>{{ good.price|intcomma }}</del>
+                                    <ins class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></ins>
+                                {% else %}
+                                    <span class="discount_item_real_price">{{ good.real_price|intcomma }}&nbsp;&nbsp;<span>تومان</span></span>
+                                {% endif %}
+                            {% else %}
+                                <span class="ended">ناموجود</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="num_less">
+                            {% if good.num < 10 and good.num > 0 %}
+                                تنها {{ good.num }} عدد باقی مانده
+                            {% endif %}
+                        </div>
+
+                        <div class="goods_score">
+                            {% if good.score_num > 0 %}
+                                <i class="fas fa-star"></i>
+                                <span class="score_mark">{{ good.score|floatformat }}</span>
+                                <span class="score_num">({{ good.score_num }})</span>
+                            {% endif %}
+                        </div>
+
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="exsist_message">هیچ کالایی با این مشخصات یافت نشد.</div>
+        <br><br><hr>
+
+        {% if goods.has_other_pages %}
+            <ul class="pagination justify-content-center page_nums">
+                {% if goods.has_previous %}
+                    <li><button type="submit" form="filter_form" id="prev_btn"><i class="fas fa-backward"></i></button></li>
+                {% else %}
+                    <li><button type="submit" class="disabled"><i class="fas fa-backward"></i></button></li>
+                {% endif %}
+            {% for i in goods.paginator.page_range %}
+                {% if goods.number == i %}
+                    <li><button type="submit" class="this_page">{{ i }}<span class="sr-only">(current)</span></button></li>
+                {% else %}
+                    <li><button type="submit" form="filter_form" class="page_numbers" name="btn">{{ i }}</button></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if goods.has_next %}
+                <li><button type="submit" form="filter_form" id="next_btn"><i class="fas fa-forward"></i></button></li>
+            {% else %}
+                <li><button type="submit" form="filter_form" class="disabled"><i class="fas fa-forward"></i></button></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+
+    </div>
+{% endblock %}

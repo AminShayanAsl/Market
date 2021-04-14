@@ -1,0 +1,9 @@
+{
+  "name": "market",
+  "version": "1.0.0",
+  "dependencies": {
+    "ez-plus": "^1.2.1",
+    "swiper": "^6.3.3",
+    "zoomove": "^1.3.0"
+  }
+}

@@ -1,0 +1,350 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'app/fontawesome/fontawesome-free-5.14.0-web/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'app/CSS/jquery-ui.css' %}">
+        <script src="{% static 'app/JS/jQuery.js' %}"></script>
+        <script src="{% static 'app/JS/jquery-ui.js' %}"></script>
+        <script src="{% static 'app/JS/jquery.ui.touch-punch.min.js' %}"></script>
+        <script src="{% static 'app/JS/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/bootstrap.min.css' %}">
+        <script src="{% static 'app/JS/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'app/CSS/style.css' %}">
+        <script src="{% static 'app/JS/style.js' %}"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'app/logo/logo.ico' %}" />
+        <title>شایان مارکت</title>
+        <script>
+            $(function () {
+                $('#search_box').autocomplete({
+                    source: "{% url 'app:search' %}",
+                })
+            })
+        </script>
+    </head>
+    <body>
+        {% block includes %}
+        {% endblock includes %}
+
+        {# mask #}
+        <div id="mask"></div>
+        {# header #}
+        <div class="fixed-top shadow" id="header">
+            <div class="d-flex justify-content-around">
+                {# logo #}
+                {% load static %}
+                <div>
+                    <a id="logo_img_link" href="{% url 'app:home' %}">
+                        <img src="{% static 'app/logo/logo.png' %}" id="logo_img">
+                    </a>
+                </div>
+                {# search box #}
+                <div>
+                    <form action="{% url 'app:all' %}" method="post" class="input-group rounded-pill" id="search_box_group">
+                        {% csrf_token %}
+                        <i id="fontawesome_close" class="fas fa-times-circle"></i>
+                        <input type="text" name="search_box" class="shadow-none" id="search_box" placeholder="جستجو کنید..." >
+                        <div id="search_microphone"><i class="fas fa-microphone"></i></div>
+                        <button type="submit" id="fontawesome_search_btn"><i id="fontawesome_search" class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                {# header menu #}
+                <div id="header_menu">
+                    <i class="fas fa-bars" id="fontawesome_header_menu"></i>
+                    <div id="btns_menu">
+                        {# shopping basket #}
+                        <a href="{% url 'app:cart' %}">
+                            <div>
+                                <span>سبد خرید</span>
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                        </a>
+                        <br>
+                        {# login #}
+                        <a href="{% url 'app:acount' %}">
+                            <div>
+                                <span>{{ btn_text }}</span>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {# shopping basket #}
+                <div id="header_btns">
+                    <a href="{% url 'app:cart' %}">
+                        <div class="button btn rounded-pill" id="btn_shopping">
+                            <span id="btn_shopping_text">سبد خرید</span>
+                            <i class="fas fa-shopping-basket fontawesome_btn_header"></i>
+                        </div>
+                    </a>
+
+                {# login #}
+                    <a href="{% url 'app:acount' %}">
+                        <div class="button btn rounded-pill" id="btn_login">
+                            <span id="btn_login_text">{{ btn_text }}</span>
+                            <i class="fas fa-user fontawesome_btn_header"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# top menu #}
+        <div class="container" id="top_menu">
+            <div class="d-flex justify-content-around shadow row" id="home_top_menu">
+                <div id="electronic">
+                    <i class="fas fa-laptop"></i>
+                    کالا دیجیتال
+
+                    <div id="electronic_menu" class="rounded menu_items_box">
+                        <a href="{% url 'app:lap_top' %}">
+                            لپ تاپ
+                        </a>
+
+                        <a href="{% url 'app:mobile' %}">
+                            گوشی
+                        </a>
+
+                        <a href="{% url 'app:headset' %}">
+                            هدفون، هندزفری
+                        </a>
+
+                        <a href="{% url 'app:charger' %}">
+                            شارژر
+                        </a>
+
+                        <a href="{% url 'app:electronic' %}">
+                            همه
+                        </a>
+                    </div>
+                </div>
+
+                <div id="clothes">
+                    <i class="fas fa-tshirt"></i>
+                    پوشاک
+
+                    <div id="clothes_gender_menu" class="rounded menu_items_box">
+                        <div id="male_clothes">
+                            <i class="fas fa-male"></i>
+                            مردانه
+
+                            <div id="male_clothes_menu" class="rounded">
+                                <a href="{% url 'app:shirt' %}">
+                                    پیراهن
+                                </a>
+
+                                <a href="{% url 'app:tshirt' %}">
+                                    تی شرت
+                                </a>
+
+                                <a href="{% url 'app:male_pants' %}">
+                                    شلوار
+                                </a>
+
+                                <a href="{% url 'app:male_clothes' %}">
+                                    همه پوشاک مردانه
+                                </a>
+                            </div>
+                        </div>
+
+                        <div id="female_clothes" style="padding-left: 14px">
+                            <i class="fas fa-female"></i>
+                            زنانه
+
+                            <div id="female_clothes_menu" class="rounded">
+                                <a href="{% url 'app:manto' %}">
+                                    مانتو
+                                </a>
+
+                                <a href="{% url 'app:blouse' %}">
+                                    بلوز
+                                </a>
+
+                                <a href="{% url 'app:female_pants' %}">
+                                    شلوار
+                                </a>
+
+                                <a href="{% url 'app:female_clothes' %}">
+                                    همه پوشاک زنانه
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="homeApp">
+                    <i class="fas fa-couch"></i>
+                    خانه و آشپزخانه
+
+
+                    <div id="homeApp_menu" class="rounded menu_items_box">
+                        <a href="{% url 'app:refrigerator' %}">
+                            یخچال
+                        </a>
+
+                        <a href="{% url 'app:TV' %}">
+                            تلوزیون
+                        </a>
+
+                        <a href="{% url 'app:washing_machine' %}">
+                            ماشین لباسشویی
+                        </a>
+
+                        <a href="{% url 'app:sofa' %}">
+                            مبلمان
+                        </a>
+
+                        <a href="{% url 'app:home_app' %}">
+                            همه
+                        </a>
+                    </div>
+                </div>
+
+                <div id="sport">
+                    <i class="far fa-futbol"></i>
+                    ورزشی
+
+                    <div id="sport_menu" class="rounded menu_items_box">
+                        <a href="{% url 'app:bicycle' %}">
+                            دوچرخه
+                        </a>
+
+                        <a href="{% url 'app:treadmill' %}">
+                            تردمیل
+                        </a>
+
+                        <a href="{% url 'app:ball' %}">
+                            توپ
+                        </a>
+
+                        <a href="{% url 'app:sport' %}">
+                            همه
+                        </a>
+                    </div>
+                </div>
+
+                <div id="Stationery">
+                    <i class="fas fa-pencil-ruler"></i>
+                    لوازم تحریر
+
+                    <div id="Stationery_menu" class="rounded menu_items_box">
+                        <a href="{% url 'app:notebook' %}">
+                            دفتر
+                        </a>
+
+                        <a href="{% url 'app:pen' %}">
+                            خودکار
+                        </a>
+
+                        <a href="{% url 'app:crayons' %}">
+                            مداد رنگی
+                        </a>
+
+                        <a href="{% url 'app:eraser' %}">
+                            پاک کن
+                        </a>
+
+                        <a href="{% url 'app:stationery' %}">
+                            همه
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {# home top menu mobile #}
+        <div class="container" id="mobile_top_menu">
+            <div class="shadow rounded row" id="home_top_menu_mobile">
+                <i class="fas fa-ellipsis-h" id="home_top_menu_mobile_icon"></i>
+                <div id="home_top_menu_mobile_items">
+                    <a href="{% url 'app:electronic_menu' %}">
+                        <div>
+                            <i class="fas fa-laptop"></i>
+                             کالا دیجیتال
+                        </div>
+                    </a>
+
+                    <a href="{% url 'app:clothes_menu' %}">
+                        <div>
+                            <i class="fas fa-tshirt"></i>
+                            پوشاک
+                        </div>
+                    </a>
+
+                    <a href="{% url 'app:homeApp_menu' %}">
+                        <div>
+                            <i class="fas fa-couch"></i>
+                            خانه و آشپزخانه
+                        </div>
+                    </a>
+
+                    <a href="{% url 'app:sport_menu' %}">
+                        <div>
+                            <i class="far fa-futbol"></i>
+                            ورزشی
+                        </div>
+                    </a>
+
+                    <a href="{% url 'app:stationery_menu' %}">
+                        <div>
+                            <i class="fas fa-pencil-ruler"></i>
+                            لوازم تحریر
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# block #}
+        {% block content %}{% endblock %}
+
+        {# footer #}
+        <div id="footer">
+            <div class="container">
+                <h5>فروشگاه اینترنتی <span>شایان مارکت</span> ،فروشگاهی برای خواسته هایتان</h5>
+                <div id="footer_text">
+                        شایان مارکت یکی از جدیدترین فروشگاه های اینترنتی، در صدد آن برآمده است تا
+                        در خواست های هموطنان عزیزمان را با بهترین کیفیت و در سریع ترین زمان به دستشان برساند.&nbsp;&nbsp;
+                        ما در این فروشگاه تمام تلاش خود را میکنیم تا علاوه بر جلب رضایت مشتریانمان بهترین کالاها
+                        را در اختیارشان قرار دهیم. در فروشگاه شایان مارکت ما سعی داشتیم که تمامی کالاها را
+                        در دسته‌بندی خود داشته باشیم.
+                </div>
+                {# advertise #}
+                <ul id="footer_advertise" class="d-flex justify-content-between">
+                    <li>
+                        <div>
+                            <i class="fas fa-thumbs-up  footer_icon" id="fontawesome_ok"></i>
+                        </div>
+                        <div class="advertise_text">رضایت شما، مشتریان عزیز</div>
+                    </li>
+                    <li>
+                        <div>
+                            <i class="fas fa-clipboard-check" id="fontawesome_quality"></i>
+                        </div>
+                        <div class="advertise_text">کیفیت کالا</div>
+                    </li>
+                    <li>
+                        <div>
+                            <i class="fas fa-comments footer_icon" id="fontawesome_comments"></i>
+                        </div>
+                        <div class="advertise_text">بهره‌مندی از نظرات مفید</div>
+                    </li>
+                    <li>
+                        <div>
+                            <i class="fas fa-truck" id="fontawesome_post"></i>
+                        </div>
+                        <div class="advertise_text"> ارسال سریع</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+
+        </script>
+    </body>
+</html>

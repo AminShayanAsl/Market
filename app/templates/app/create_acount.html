@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+
+{% block includes %}
+    {{ btn_text }}
+{% endblock includes %}
+
+{% block content %}
+    <div class="container shadow" id="create_acont_page">
+
+        {# error messages #}
+        <br>
+        {% for error in error_messages %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger fade show position-absolute">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>{{ error }}</span>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div id="create_acont_page_title" class="d-block">
+            <h2>ثبت نام :</h2>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <form action="{% url 'app:created_acount' %}" method="post" class="form-inline shadow" id="new_acount" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="text" name="user_name" class="form-control" placeholder="نام کاربری">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="fname" class="form-control" placeholder="نام">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="lname" class="form-control" placeholder="نام خانوادگی">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control passWord" placeholder="رمز">
+                    <i class="far fa-eye" id="pass_show"></i>
+                    <i class="far fa-eye-slash" id="pass_hide"></i>
+                </div>
+
+                <div class="form-group" id="profile_img_choose">
+                    <input type="file" name="image" accept="image/*" id="id_image">
+                    <span id='image_val' data-toggle="tooltip" data-placement="right">انتخاب عکس پروفایل</span>
+                    <span id='image_choose_btn' title="انتخاب عکس" data-toggle="tooltip" data-placement="left"><i class="fas fa-cloud-upload-alt"></i></span>
+                </div>
+
+                <input type="submit" value="ثبت اطلاعات" id="new_acount_btn" class="btn btn-block rounded-pill">
+            </form>
+        </div>
+    </div>
+{% endblock %}
